@@ -1,3 +1,4 @@
+import { ConsultaCepService } from './../service/consulta-cep.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -9,9 +10,17 @@ import { NgForm } from '@angular/forms';
 })
 export class CadastroComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private consulta: ConsultaCepService) { }
 
   ngOnInit(): void {
+  }
+
+  consultaCEP(ev: any, f: NgForm){
+      const cep = ev.target.value;
+      if (cep !== ''){
+        return this.consulta.getConsultaCep(cep).subscribe(resultado => console.log(resultado));
+      }
   }
 
   cadastrar(form: NgForm){
